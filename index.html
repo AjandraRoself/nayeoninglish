@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nayeon: TWICE's Main Vocalist - Group Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            max-width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            padding: 40px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .presenter-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+            z-index: 10;
+        }
+
+        .alejandra { background-color: #dc3545; }
+        .brighit { background-color: #ffc107; color: #333; }
+        .keysi { background-color: #28a745; }
+
+        .slide-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            max-width: 900px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .slide h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide h2 {
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .slide h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.3em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .alejandra-slide .slide-content {
+            border-left: 8px solid #dc3545;
+        }
+
+        .alejandra-slide h1, .alejandra-slide h2, .alejandra-slide h3 {
+            color: #dc3545;
+        }
+
+        .brighit-slide .slide-content {
+            border-left: 8px solid #ffc107;
+        }
+
+        .brighit-slide h1, .brighit-slide h2, .brighit-slide h3 {
+            color: #f39c12;
+        }
+
+        .keysi-slide .slide-content {
+            border-left: 8px solid #28a745;
+        }
+
+        .keysi-slide h1, .keysi-slide h2, .keysi-slide h3 {
+            color: #28a745;
+        }
+
+        .bio-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            align-items: center;
+            text-align: left;
+        }
+
+        .nayeon-image {
+            width: 250px;
+            height: 300px;
+            border-radius: 15px;
+            margin: 0 auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .nayeon-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .song-card {
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .song-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+            border-left: 5px solid;
+            text-align: left;
+        }
+
+        .alejandra-slide .timeline-item { border-left-color: #dc3545; }
+        .brighit-slide .timeline-item { border-left-color: #ffc107; }
+        .keysi-slide .timeline-item { border-left-color: #28a745; }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .memory-card:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .highlight-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .highlight-list li {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .alejandra-slide .highlight-list li { border-left-color: #dc3545; }
+        .brighit-slide .highlight-list li { border-left-color: #ffc107; }
+        .keysi-slide .highlight-list li { border-left-color: #28a745; }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px;
+            }
+            
+            .slide h1 { font-size: 2em; }
+            .slide h2 { font-size: 1.8em; }
+            .slide h3 { font-size: 1.5em; }
+            .slide p, .slide li { font-size: 1.1em; }
+            
+            .bio-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .songs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter" id="slideCounter">1 / 10</div>
+
+        <div class="slide active alejandra-slide">
+            <div class="presenter-badge alejandra">Alejandra</div>
+            <div class="slide-content">
+                <h1>🌟 NAYEON 🌟</h1>
+                <h2>The Voice and Center of TWICE</h2>
+                <div class="nayeon-image">
+                    <img src="nayeon_album_cover.jpg" alt="Nayeon album cover">
+                </div>
+                <p style="font-size: 1.5em; margin-top: 20px;">A Journey Through Music and Success</p>
+            </div>
+        </div>
+
+        <div class="slide alejandra-slide">
+            <div class="presenter-badge alejandra">Alejandra</div>
+            <div class="slide-content">
+                <h2>👑 Who is Nayeon?</h2>
+                <div class="bio-grid">
+                    <div class="nayeon-image">
+                         <img src="nayeon_pigtails_peace_sign.jpg" alt="Nayeon with pigtails making a peace sign">
+                    </div>
+                    <div>
+                        <ul class="highlight-list">
+                            <li><strong>Full Name:</strong> Im Na-yeon</li>
+                            <li><strong>Birth Date:</strong> September 22, 1995</li>
+                            <li><strong>Position:</strong> Main Vocalist & Center</li>
+                            <li><strong>Group:</strong> TWICE (2015-present)</li>
+                            <li><strong>Solo Career:</strong> Started in 2022</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide alejandra-slide">
+            <div class="presenter-badge alejandra">Alejandra</div>
+            <div class="slide-content">
+                <h2>📅 Career Timeline</h2>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="flex: 2;">
+                        <div class="timeline-item">
+                            <h3>2015 - TWICE Debut</h3>
+                            <p>Selected through "SIXTEEN" reality show and debuted with TWICE</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>2015-2022 - Group Success</h3>
+                            <p>Became one of the most successful K-pop girl groups worldwide</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>June 2022 - Solo Pioneer</h3>
+                            <p>First TWICE member to release solo album "IM NAYEON"</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h3>June 2024 - Continued Success</h3>
+                            <p>Released second EP "NA" with title track "ABCD"</p>
+                        </div>
+                    </div>
+                    <div style="flex: 1;">
+                        <img src="nayeon_long_pigtails_dress.jpg" alt="Nayeon in a pink dress with long pigtails" style="width: 100%; border-radius: 15px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide brighit-slide">
+            <div class="presenter-badge brighit">Brighit</div>
+            <div class="slide-content">
+                <h2>🎵 Nayeon's Solo Songs</h2>
+                <img src="nayeon_closeup_hand.jpg" alt="Closeup of Nayeon's face" style="max-width: 220px; border-radius: 15px; margin-bottom: 20px;">
+                <div class="songs-grid">
+                    <div class="song-card" onclick="playSong('Pop!')">
+                        <h3>🎤 Pop!</h3>
+                        <p><strong>Album:</strong> IM NAYEON (2022)</p>
+                        <p>Her debut solo single - bright and energetic!</p>
+                    </div>
+                    <div class="song-card" onclick="playSong('ABCD')">
+                        <h3>🎵 ABCD</h3>
+                        <p><strong>Album:</strong> NA (2024)</p>
+                        <p>Catchy title track from her second EP</p>
+                    </div>
+                    <div class="song-card" onclick="playSong('No Problem')">
+                        <h3>💪 No Problem</h3>
+                        <p><strong>Album:</strong> IM NAYEON (2022)</p>
+                        <p>Confident and fun B-side track</p>
+                    </div>
+                    <div class="song-card" onclick="playSong('Candyfloss')">
+                        <h3>🍭 Candyfloss</h3>
+                        <p><strong>Album:</strong> NA (2024)</p>
+                        <p>Sweet and dreamy melody</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide brighit-slide">
+            <div class="presenter-badge brighit">Brighit</div>
+            <div class="slide-content">
+                <h2>🏆 Music Achievements</h2>
+                <div class="bio-grid">
+                    <div class="nayeon-image">
+                         <img src="nayeon_glitter_makeup.jpg" alt="Nayeon with glittery makeup" style="height: 350px;">
+                    </div>
+                    <ul class="highlight-list">
+                        <li>🥇 <strong>First TWICE Solo Artist:</strong> Pioneered solo careers in the group</li>
+                        <li>📈 <strong>"Pop!" Success:</strong> Reached top charts in multiple countries</li>
+                        <li>🎯 <strong>Two Successful EPs:</strong> "IM NAYEON" (2022) and "NA" (2024)</li>
+                        <li>🌟 <strong>Versatile Artist:</strong> From energetic pop to sweet ballads</li>
+                        <li>💝 <strong>Fan Favorite:</strong> Loved by ONCEs worldwide</li>
+                        <li>🎤 <strong>Powerful Voice:</strong> Recognized for distinctive vocal style</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide brighit-slide">
+            <div class="presenter-badge brighit">Brighit</div>
+            <div class="slide-content">
+                <h2>🎯 Nayeon Quiz Game</h2>
+                <div class="game-container">
+                    <div id="quiz-question">
+                        <h3>What was Nayeon's first solo single?</h3>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectAnswer(this, false)">ABCD</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, true)">Pop!</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, false)">No Problem</div>
+                            <div class="quiz-option" onclick="selectAnswer(this, false)">Candyfloss</div>
+                        </div>
+                        <p id="quiz-result" style="font-size: 1.5em; margin-top: 20px;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide keysi-slide">
+            <div class="presenter-badge keysi">Keysi</div>
+            <div class="slide-content">
+                <h2>🌟 Fun Facts About Nayeon</h2>
+                <ul class="highlight-list">
+                    <li>🎤 <strong>Amazing Voice:</strong> She has a powerful and unique voice</li>
+                    <li>💃 <strong>Great Dancer:</strong> Full of energy when performing</li>
+                    <li>👑 <strong>Group Leader:</strong> She is the "face" of TWICE</li>
+                    <li>🎵 <strong>Solo Star:</strong> First TWICE member to go solo</li>
+                </ul>
+                <div class="nayeon-image" style="margin-top: 30px;">
+                     <img src="nayeon_imnayeon_necklace.jpg" alt="Nayeon pouting for the camera">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide keysi-slide">
+            <div class="presenter-badge keysi">Keysi</div>
+            <div class="slide-content">
+                <h2>🧠 Memory Game</h2>
+                <p>Click cards to find pairs!</p>
+                <div class="game-container">
+                    <div class="memory-game" id="memory-game">
+                        <div class="memory-card" onclick="flipCard(this, '🎤')" data-pair="singer">?</div>
+                        <div class="memory-card" onclick="flipCard(this, 'Singer')" data-pair="🎤">?</div>
+                        <div class="memory-card" onclick="flipCard(this, '💃')" data-pair="dancer">?</div>
+                        <div class="memory-card" onclick="flipCard(this, 'Dancer')" data-pair="💃">?</div>
+                        <div class="memory-card" onclick="flipCard(this, '👑')" data-pair="center">?</div>
+                        <div class="memory-card" onclick="flipCard(this, 'Center')" data-pair="👑">?</div>
+                        <div class="memory-card" onclick="flipCard(this, '🌟')" data-pair="solo">?</div>
+                        <div class="memory-card" onclick="flipCard(this, 'Solo')" data-pair="🌟">?</div>
+                    </div>
+                    <p id="game-status">Find all pairs!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide keysi-slide">
+            <div class="presenter-badge keysi">Keysi</div>
+            <div class="slide-content">
+                <h2>💖 Why We Love Nayeon</h2>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
+                        <h3>🎤 Great Singer</h3>
+                        <p>Her voice is beautiful and strong</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
+                        <h3>💃 Amazing Performer</h3>
+                        <p>She dances with lots of energy</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
+                        <h3>🌟 Solo Success</h3>
+                        <p>She made great solo songs</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
+                        <h3>👑 TWICE Star</h3>
+                        <p>Important member of TWICE</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h1>🎉 Thank You!</h1>
+                <h2>Hope you enjoyed learning about Nayeon!</h2>
+                <div style="display: flex; justify-content: space-around; margin: 40px 0;">
+                    <div style="text-align: center;">
+                        <div style="background: #dc3545; color: white; padding: 15px; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">A</div>
+                        <p><strong>Alejandra</strong></p>
+                        <p>Biography & Timeline</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="background: #ffc107; color: #333; padding: 15px; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">B</div>
+                        <p><strong>Brighit</strong></p>
+                        <p>Songs & Achievements</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="background: #28a745; color: white; padding: 15px; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">K</div>
+                        <p><strong>Keysi</strong></p>
+                        <p>Fun Facts & Games</p>
+                    </div>
+                </div>
+                <p style="font-size: 1.5em;">🎵 Keep supporting Nayeon and TWICE! 💖</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') nextSlide();
+            if (event.key === 'ArrowLeft') previousSlide();
+        });
+
+        // Quiz Game
+        function selectAnswer(element, isCorrect) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            
+            if (isCorrect) {
+                element.style.background = 'rgba(76, 175, 80, 0.8)';
+                document.getElementById('quiz-result').textContent = '🎉 Correct! Pop! was her first solo single!';
+                document.getElementById('quiz-result').style.color = '#4CAF50';
+            } else {
+                element.style.background = 'rgba(244, 67, 54, 0.8)';
+                document.getElementById('quiz-result').textContent = '❌ Wrong! The correct answer is Pop!';
+                document.getElementById('quiz-result').style.color = '#f44336';
+                // Show correct answer
+                options.forEach(opt => {
+                    if (opt.textContent === 'Pop!') {
+                        opt.style.background = 'rgba(76, 175, 80, 0.8)';
+                    }
+                });
+            }
+        }
+
+        // Memory Game
+        let flippedCards = [];
+        let matchedPairs = 0;
+
+        function flipCard(element, content) {
+            if (element.textContent !== '?' || flippedCards.length === 2) return;
+
+            element.textContent = content;
+            element.style.background = 'rgba(255, 255, 255, 0.8)';
+            element.style.color = '#333';
+            flippedCards.push({element, content});
+
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 1000);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            const isMatch = (card1.content === '🎤' && card2.content === 'Singer') ||
+                           (card1.content === 'Singer' && card2.content === '🎤') ||
+                           (card1.content === '💃' && card2.content === 'Dancer') ||
+                           (card1.content === 'Dancer' && card2.content === '💃') ||
+                           (card1.content === '👑' && card2.content === 'Center') ||
+                           (card1.content === 'Center' && card2.content === '👑') ||
+                           (card1.content === '🌟' && card2.content === 'Solo') ||
+                           (card1.content === 'Solo' && card2.content === '🌟');
+
+            if (isMatch) {
+                card1.element.style.background = 'rgba(76, 175, 80, 0.8)';
+                card2.element.style.background = 'rgba(76, 175, 80, 0.8)';
+                matchedPairs++;
+                
+                if (matchedPairs === 4) {
+                    document.getElementById('game-status').textContent = '🎉 You won! All pairs found!';
+                }
+            } else {
+                card1.element.textContent = '?';
+                card2.element.textContent = '?';
+                card1.element.style.background = 'rgba(255, 255, 255, 0.2)';
+                card2.element.style.background = 'rgba(255, 255, 255, 0.2)';
+                card1.element.style.color = 'white';
+                card2.element.style.color = 'white';
+            }
+
+            flippedCards = [];
+        }
+
+        function playSong(songName) {
+            const messages = {
+                'Pop!': '🎵 Playing "Pop!" - Nayeon\'s energetic solo debut! 🎤✨',
+                'ABCD': '🎵 Playing "ABCD" - From her latest EP "NA"! 💖🌟',
+                'No Problem': '🎵 Playing "No Problem" - Confident and fun! 💪🎶',
+                'Candyfloss': '🎵 Playing "Candyfloss" - Sweet and dreamy! 🍭💭'
+            };
+            
+            alert(messages[songName]);
+        }
+    </script>
+</body>
+</html>
